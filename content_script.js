@@ -2,9 +2,9 @@ var comments = [].slice.call(document.querySelectorAll('.timeline-comment-wrappe
 var avatars = [];
 comments.forEach(function(comment) {
   var text = comment.querySelector('.comment-body').textContent.trim();
-  if (text.match(/^\+1/)) {
+  if (text.match(/^\+1/) || comment.querySelector('img[title=":+1:"]')) {
     avatars.push(comment.querySelector('a').cloneNode(true));
-    if (text.match(/^\+1$/)) {
+    if (text.match(/^\+1$/) || !text ) { // there wont be text if the comment is just a 👍
       comment.style.display='none';
     }
   }

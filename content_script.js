@@ -4,7 +4,9 @@ comments.forEach(function(comment) {
   var text = comment.querySelector('.comment-body').textContent.trim();
   if (text.match(/^\+1/)) {
     avatars.push(comment.querySelector('a').cloneNode(true));
-    comment.style.display='none';
+    if (text.match(/^\+1$/)) {
+      comment.style.display='none';
+    }
   }
 });
 

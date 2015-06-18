@@ -1,7 +1,7 @@
 {
   "name": "Github +1s",
   "description": "Shows you the counts and avatars of those noisy '+1' comments and hides the original comments.",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": [
     "activeTab"
   ],

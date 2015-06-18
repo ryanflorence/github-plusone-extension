@@ -1,38 +1,53 @@
-function removePlusOnes() {
-  var comments = [].slice.call(document.querySelectorAll('.timeline-comment-wrapper'), 0);
-  var avatars = [];
-  var alreadySeen = [];
-  comments.forEach(function (comment) {
-    var text = comment.querySelector('.comment-body').textContent.trim();
-    if(text.match(/^\+1/) || comment.querySelector('img[title=":+1:"]')) {
-      var avatar = comment.querySelector('a').cloneNode(true);
-      var user = avatar.href;
-      if(alreadySeen.indexOf(user) < 0) {
-        avatars.push(avatar);
-        alreadySeen.push(user);
-      }
-      if(text.match(/^\+1$/) || !text) { // there wont be text if the comment is just a 👍
-        comment.style.display = 'none';
-      }
-    }
-  });
+var comments = [].slice.call(document.querySelectorAll('.timeline-comment-wrapper'), 0);
+var upAvatars = [];
+var downAvatars = [];
+var alreadySeenUp = [];
+var alreadySeenDown = [];
 
-  if(avatars.length > 0) {
+
+
+function findUpVoter(comment) {
+  findVoter('+1', comment, upAvatars, alreadySeenUp);
+}
+
+function findDownVoter(comment) {
+  findVoter('-1', comment, downAvatars, alreadySeenDown);
+}
+
+function findVoter(voteText, comment, avatars, alreadySeen) {
+  var regex = new RegExp('^\\' + voteText);
+  var text = comment.querySelector('.comment-body').textContent.trim();
+  if (text.match(regex) || comment.querySelector('img[title=":' + voteText + ':"]')) {
+    var avatar = comment.querySelector('a').cloneNode(true);
+    var user = avatar.href;
+    if (alreadySeen.indexOf(user) < 0) {
+      avatars.push(avatar);
+      alreadySeen.push(user);
+    }
+
+    if (text.match(new RegExp('^\\' + voteText +'$')) || !text ) { // there wont be text if the comment is just a 👍
+      comment.style.display='none';
+    }
+  }
+}
+
+function appendVotes(avatars, icon) {
+  if (avatars.length > 0) {
     var div = document.createElement('div');
     div.className = 'flex-table gh-header-meta';
-    div.innerHTML = '' +
-        '<div class="flex-table-item">' +
-        '  <div class="state" style="background: hsl(215, 50%, 50%)">' +
-        '    <span class="octicon octicon-thumbsup"></span>' +
-        avatars.length +
-        '  </div>' +
-        '</div>' +
-        '<div class="flex-table-item flex-table-item-primary"></div>';
+    div.innerHTML = ''+
+      '<div class="flex-table-item">'+
+      '  <div class="state" style="background: hsl(215, 50%, 50%)">'+
+      '    <span class="octicon octicon-' + icon + '"></span>'+
+           avatars.length+
+      '  </div>'+
+      '</div>'+
+      '<div class="flex-table-item flex-table-item-primary"></div>';
 
     var avatarContainer = div.querySelector('.flex-table-item-primary');
     avatarContainer.style.paddingTop = 0;
 
-    avatars.forEach(function (avatar) {
+    avatars.forEach(function(avatar) {
       var img = avatar.querySelector('img');
       img.className = '';
       img.style.height = '26px';
@@ -46,10 +61,10 @@ function removePlusOnes() {
   }
 }
 
-var observer = new MutationObserver(function(mutations) {
-  removePlusOnes();
+comments.forEach(function(comment) {
+  findUpVoter(comment);
+  findDownVoter(comment);
 });
 
-observer.observe(document.querySelector('div.js-discussion'), {childList: true});
-
-removePlusOnes();
+appendVotes(upAvatars, 'thumbsup');
+appendVotes(downAvatars, 'thumbsdown');

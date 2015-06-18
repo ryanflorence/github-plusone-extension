@@ -1,9 +1,15 @@
 var comments = [].slice.call(document.querySelectorAll('.timeline-comment-wrapper'), 0);
 var avatars = [];
+var alreadySeen = [];
 comments.forEach(function(comment) {
   var text = comment.querySelector('.comment-body').textContent.trim();
   if (text.match(/^\+1/) || comment.querySelector('img[title=":+1:"]')) {
-    avatars.push(comment.querySelector('a').cloneNode(true));
+    var avatar = comment.querySelector('a').cloneNode(true);
+    var user = avatar.href;
+    if (alreadySeen.indexOf(user) < 0) {
+      avatars.push(avatar);
+      alreadySeen.push(user);
+    }
     if (text.match(/^\+1$/) || !text ) { // there wont be text if the comment is just a 👍
       comment.style.display='none';
     }

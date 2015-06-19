@@ -54,7 +54,7 @@ var observer = new MutationObserver(function(mutations) {
   var needsRemoval = false;
   mutations.forEach(function(mutation) {
     Array.prototype.slice.call(mutation.addedNodes).forEach(function(node) {
-      if (node instanceof Element && (node.querySelector(".js-discussion") || node.classList.contains("js-discussion"))) {
+      if (node instanceof Element && (node.querySelector(".js-comment") || node.classList.contains("js-comment"))) {
         needsRemoval = true;
       }
     });

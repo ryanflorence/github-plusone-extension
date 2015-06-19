@@ -4,7 +4,11 @@ function removePlusOnes() {
   var alreadySeen = [];
   comments.forEach(function (comment) {
     var text = comment.querySelector('.comment-body').textContent.trim();
-    if(text.match(/^\+1/) || comment.querySelector('img[title=":+1:"]')) {
+    if (
+      text.match(/^\+1/) ||
+      comment.querySelector('img[title=":+1:"]') ||
+      comment.querySelector('img[title=":thumbsup:"]')
+    ) {
       var avatar = comment.querySelector('a').cloneNode(true);
       var user = avatar.href;
       if(alreadySeen.indexOf(user) < 0) {

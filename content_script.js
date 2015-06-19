@@ -72,6 +72,7 @@ var observer = new MutationObserver(function(mutations) {
   }
 });
 
-observer.observe(document, {childList: true, subtree: true});
+var container = document.getElementById('js-repo-pjax-container');
+observer.observe(container, {childList: true, subtree: true});
 
 removePlusOnes();

@@ -23,7 +23,7 @@ function removePlusOnes() {
 
   if(avatars.length > 0) {
     var div = document.createElement('div');
-    div.className = 'flex-table gh-header-meta';
+    div.className = 'js-plus-one-count flex-table gh-header-meta';
     div.innerHTML = '' +
         '<div class="flex-table-item">' +
         '  <div class="state" style="background: hsl(215, 50%, 50%)">' +
@@ -49,6 +49,9 @@ function removePlusOnes() {
       img.style.borderRadius = '3px';
       avatarContainer.appendChild(avatar);
     });
+
+    var currentCount = document.querySelector('.js-plus-one-count');
+    if (currentCount) { currentCount.remove(); }
 
     document.querySelector('.gh-header-show').appendChild(div);
   }

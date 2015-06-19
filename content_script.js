@@ -37,6 +37,10 @@ function removePlusOnes() {
     avatarContainer.style.paddingTop = 0;
 
     avatars.forEach(function (avatar) {
+      // Tap the power of tooltips
+      avatar.className = 'avatar-link tooltipped tooltipped-s';
+      avatar.setAttribute('aria-label', avatar.getAttribute('href').replace(/^\//, ''));
+
       var img = avatar.querySelector('img');
       img.className = '';
       img.style.height = '26px';

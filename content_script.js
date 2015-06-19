@@ -22,8 +22,8 @@ function removePlusOnes() {
   });
 
   if(avatars.length > 0) {
-    var div = document.createElement('div');
-    div.className = 'flex-table gh-header-meta';
+    var div = document.querySelector(".github-plusone-extension") || document.createElement('div');
+    div.className = 'github-plusone-extension flex-table gh-header-meta';
     div.innerHTML = '' +
         '<div class="flex-table-item">' +
         '  <div class="state" style="background: hsl(215, 50%, 50%)">' +

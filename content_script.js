@@ -51,9 +51,20 @@ function removePlusOnes() {
 }
 
 var observer = new MutationObserver(function(mutations) {
-  removePlusOnes();
+  var needsRemoval = false;
+  mutations.forEach(function(mutation) {
+    Array.prototype.slice.call(mutation.addedNodes).forEach(function(node) {
+      if (node instanceof Element && node.querySelector(".js-discussion")) {
+        needsRemoval = true;
+      }
+    });
+  });
+
+  if (needsRemoval) {
+    removePlusOnes();
+  }
 });
 
-observer.observe(document.querySelector('div.js-discussion'), {childList: true});
+observer.observe(document, {childList: true, subtree: true});
 
 removePlusOnes();

@@ -5,7 +5,7 @@ function removePlusOnes() {
   comments.forEach(function (comment) {
     var text = comment.querySelector('.comment-body').textContent.trim();
     if (
-      text.match(/^\+1/) ||
+      text.match(/^(\+1|👍)/) ||
       comment.querySelector('img[title=":+1:"]') ||
       comment.querySelector('img[title=":thumbsup:"]')
     ) {
@@ -15,7 +15,7 @@ function removePlusOnes() {
         avatars.push(avatar);
         alreadySeen.push(user);
       }
-      if(text.match(/^\+1$/) || !text) { // there wont be text if the comment is just a 👍
+      if(text.match(/^(\+1|👍)$/) || !text) { // there wont be text if the comment is just a 👍
         comment.style.display = 'none';
       }
     }

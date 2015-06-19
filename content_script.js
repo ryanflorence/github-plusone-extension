@@ -28,7 +28,7 @@ function removePlusOnes() {
         '<div class="flex-table-item">' +
         '  <div class="state" style="background: hsl(215, 50%, 50%)">' +
         '    <span class="octicon octicon-thumbsup"></span>' +
-        avatars.length +
+        '    +' + avatars.length +
         '  </div>' +
         '</div>' +
         '<div class="flex-table-item flex-table-item-primary"></div>';

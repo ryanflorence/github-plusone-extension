@@ -48,15 +48,15 @@ function buildVoteIcons() {
         '<div class="flex-table-item flex-table-item-primary"></div>';
 
       var avatarContainer = div.querySelector('.flex-table-item-primary');
-      avatarContainer.style.paddingTop = 0;
 
       avatars.forEach(function(avatar) {
+        avatar.className = 'tooltipped tooltipped-' + (icon=='thumbsup' ? 'n' : 's');
+        avatar.style.float = 'left';
         var img = avatar.querySelector('img');
-        img.className = '';
-        img.style.height = '26px';
-        img.style.width = '26px';
-        img.style.margin = '0 2px';
-        img.style.borderRadius = '3px';
+        avatar.setAttribute('aria-label', img.alt.substring(1));
+        img.className = 'avatar avatar-small';
+        img.setAttribute('height', '26px');
+        img.setAttribute('width', '26px');
         avatarContainer.appendChild(avatar);
       });
 
